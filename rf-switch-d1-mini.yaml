@@ -1,0 +1,187 @@
+substitutions:
+  name: rf-switch
+  friendly_name: ''
+
+esphome:
+  name: ${name}
+  friendly_name: ${friendly_name}
+  min_version: 2025.11.0
+  name_add_mac_suffix: false
+
+esp8266:
+  board: d1_mini
+  framework:
+    version: recommended
+
+# Enable logging
+logger:
+  level: DEBUG
+
+# Enable Home Assistant API
+api:
+  encryption:
+    key: !secret esphome_encryption_key
+
+# Allow Over-The-Air updates
+ota:
+  - platform: esphome
+    password: !secret ota_encryption_key
+
+# Allow provisioning Wi-Fi via serial
+#improv_serial:
+wifi:
+  min_auth_mode: WPA2
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+
+  # Enable fallback hotspot (captive portal) in case wifi connection fails
+  ap:
+    ssid: "${name} fallback hotspot"
+    password: "MySecretPassword4HotSpot"
+
+# To have a "next url" for improv serial
+web_server:
+
+# In combination with the `ap` this allows the user
+# to provision wifi credentials to the device via WiFi AP.
+captive_portal:
+
+# device specific components
+external_components:
+  source: github://DonKracho/ESPHome-component-Quigg-Funksteckdosen/components@main
+  refresh: 0s
+
+switch:
+  # rf switches (433 MHz)
+  - platform: rf_switch
+    name: 'Deko'
+    channel: 0
+    icon: 'mdi:lightbulb'
+    output: rf_transmitter 
+  - platform: rf_switch
+    name: 'Fenster'
+    icon: 'mdi:lightbulb'
+    channel: 1
+    output: rf_transmitter 
+  - platform: rf_switch
+    icon: 'mdi:lightbulb'
+    name: 'Home'
+    channel: 2
+    output: rf_transmitter 
+  - platform: rf_switch
+    name: 'Funk 03'
+    icon: 'mdi:power-socket-de'
+    channel: 3
+    output: rf_transmitter 
+  - platform: rf_switch
+    name: 'Funk 04'
+    icon: 'mdi:power-socket-de'
+    channel: 4
+    output: rf_transmitter 
+  - platform: rf_switch
+    name: 'Funk 05'
+    icon: 'mdi:power-socket-de'
+    channel: 5
+    output: rf_transmitter 
+  - platform: rf_switch
+    name: 'Funk 06'
+    icon: 'mdi:power-socket-de'
+    channel: 6
+    output: rf_transmitter 
+  - platform: rf_switch
+    name: 'Funk 07'
+    icon: 'mdi:power-socket-de'
+    channel: 7
+    output: rf_transmitter 
+  - platform: rf_switch
+    name: 'Funk 08'
+    channel: 8
+    icon: 'mdi:power-socket-de'
+    output: rf_transmitter 
+  - platform: rf_switch
+    name: 'Funk 09'
+    channel: 9
+    icon: 'mdi:power-socket-de'
+    output: rf_transmitter 
+  - platform: rf_switch
+    name: 'Funk 11'
+    icon: 'mdi:power-socket-de'
+    channel: 11
+    output: rf_transmitter 
+  - platform: rf_switch
+    name: 'Funk 12'
+    icon: 'mdi:power-socket-de'
+    channel: 12
+    output: rf_transmitter 
+  - platform: rf_switch
+    name: 'Funk 13'
+    icon: 'mdi:power-socket-de'
+    channel: 13
+    output: rf_transmitter 
+  - platform: rf_switch
+    icon: 'mdi:power-socket-de'
+    name: 'Funk 14'
+    channel: 14
+    output: rf_transmitter 
+  - platform: rf_switch
+    icon: 'mdi:power-socket-de'
+    name: 'Funk 15'
+    channel: 15
+    output: rf_transmitter 
+  - platform: rf_switch
+    name: 'Master'
+    id: master
+    channel: 10
+    output: rf_transmitter
+
+  - platform: rf_switch
+    id: clear
+    channel: 2  # master of group 1
+    group: 1    # clear uses other group in order not to interfear with master
+    output: rf_transmitter
+    internal: true
+
+  # gpio switches (relay)
+  - platform: gpio
+    name: 'Pumpe'
+    icon: 'mdi:water-pump'
+    pin:
+      number: GPIO16  #D0
+      inverted: true
+  - platform: gpio
+    name: 'Brunnen'
+    icon: 'mdi:fountain'
+    pin:
+      number: GPIO5 #D1
+      inverted: true
+  - platform: gpio
+    name: 'Gewächshaus-Boden'
+    icon: 'mdi:water'
+    pin: GPIO4  #D2
+  - platform: gpio
+    name: 'Hecke-Perlschlauch'
+    icon: 'mdi:water'
+    pin: GPIO14 #D5
+  - platform: gpio
+    name: 'Südwand-Terasse'
+    icon: 'mdi:water'
+    pin: GPIO13 #D7
+  - platform: gpio
+    name: 'Hochbeete-Rasen'
+    icon: 'mdi:water'
+    pin: GPIO15 #D8
+
+# output component for all rfswitches
+output:
+  - platform: rf_outlet
+    id: rf_transmitter
+    pin: GPIO12 #D6
+    repeat: 6
+
+# for erasing all programmed codes of an outlet socket (must be triggered while in program mode)
+button:
+  - platform: template
+    name: Clear Outlet
+    icon: 'mdi:restore'
+    on_press:
+      - switch.turn_off: clear
