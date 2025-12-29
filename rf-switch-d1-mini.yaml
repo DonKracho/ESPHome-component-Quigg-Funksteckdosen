@@ -50,6 +50,7 @@ captive_portal:
 external_components:
   source: github://DonKracho/ESPHome-component-Quigg-Funksteckdosen/components@main
   refresh: 0s
+  components: [rf_outlet, rf_switch]
 
 switch:
   # rf switches (433 MHz)
