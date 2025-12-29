@@ -3,7 +3,7 @@
 
 # device specific components
 external_components:
-  #source: github:DonKracho/ESPHome-component-Quigg-Funksteckdosen/components@main
+  source: github://DonKracho/ESPHome-component-Quigg-Funksteckdosen/components@main
   refresh: 0s
 
 switch:
@@ -18,3 +18,4 @@ output:
     pin: GPIO6
     repeat: 6 # optional, default: 6
 ```
+
