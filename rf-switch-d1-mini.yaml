@@ -1,9 +1,9 @@
 substitutions:
-  name: rf-switch
-  friendly_name: ''
+  device_name: wifi-switch
+  friendly_name: 'WiFi Switch'
 
 esphome:
-  name: ${name}
+  name: ${device_name}
   friendly_name: ${friendly_name}
   min_version: 2025.11.0
   name_add_mac_suffix: false
@@ -20,15 +20,13 @@ logger:
 # Enable Home Assistant API
 api:
   encryption:
-    key: !secret esphome_encryption_key
+    key: !secret esphome_api_key
 
 # Allow Over-The-Air updates
 ota:
   - platform: esphome
-    password: !secret ota_encryption_key
+    password: !secret esphome_ota_key
 
-# Allow provisioning Wi-Fi via serial
-#improv_serial:
 wifi:
   min_auth_mode: WPA2
   ssid: !secret wifi_ssid
@@ -36,9 +34,12 @@ wifi:
 
   # Enable fallback hotspot (captive portal) in case wifi connection fails
   ap:
-    ssid: "${name} fallback hotspot"
+    ssid: "${device_name} fallback hotspot"
     password: "MySecretPassword4HotSpot"
 
+# Allow provisioning Wi-Fi via serial or web_server
+#improv_serial:
+# or connect to the fallback ap and get redirected to a web page for wifi credentials
 # To have a "next url" for improv serial
 web_server:
 
@@ -70,8 +71,8 @@ switch:
     channel: 2
     output: rf_transmitter 
   - platform: rf_switch
-    name: 'Funk 03'
-    icon: 'mdi:power-socket-de'
+    name: 'Lichterkette'
+    icon: 'mdi:string-lights'
     channel: 3
     output: rf_transmitter 
   - platform: rf_switch
@@ -138,7 +139,7 @@ switch:
   - platform: rf_switch
     id: clear
     channel: 2  # master of group 1
-    group: 1    # clear uses other group in order not to interfear with master
+    group: 1    # clear uses other group in order not to interfear with master of group 0
     output: rf_transmitter
     internal: true
 
