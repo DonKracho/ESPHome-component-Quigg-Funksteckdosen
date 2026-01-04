@@ -1,5 +1,3 @@
-#ifdef USE_ARDUINO
-
 #include "rf_outlet.h"
 #include "esphome/core/helpers.h"
 #include "esphome/core/log.h"
@@ -175,5 +173,3 @@ void RfOutlet::endPulse()
 
 }  // namespace rf_outlet
 }  // namespace esphome
-
-#endif  // USE_ARDUINO

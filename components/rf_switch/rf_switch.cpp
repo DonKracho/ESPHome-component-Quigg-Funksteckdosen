@@ -4,7 +4,7 @@
 namespace esphome {
 namespace rf_switch {
 
-static const char *TAG = "rf_switch.switch";
+static const char *TAG = "rf_switch";
 
 void RfSwitch::write_state(bool state) {
   // This will be called every time the user requests a state change.

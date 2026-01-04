@@ -50,6 +50,7 @@ captive_portal:
 # device specific components
 external_components:
   source: github://DonKracho/ESPHome-component-Quigg-Funksteckdosen/components@main
+  #source: D:\ESPHome-component-Quigg-Funksteckdosen\components
   refresh: 0s
   components: [rf_outlet, rf_switch]
 

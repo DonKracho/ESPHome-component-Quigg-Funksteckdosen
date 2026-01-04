@@ -16,8 +16,7 @@ CONF_RFPIN = "rf_pin"
 CONF_GROUP = "group"
 CONF_CHANNEL = "channel"
 
-CONFIG_SCHEMA = switch._SWITCH_SCHEMA.extend({
-    cv.GenerateID(): cv.declare_id(RfSwitch),
+CONFIG_SCHEMA = switch.switch_schema(RfSwitch).extend({
     cv.Required(CONF_OUTPUT): cv.use_id(output.FloatOutput),
     cv.Required(CONF_CHANNEL): vol.All(cv.uint16_t, vol.Range(min=0, max=15)),
     cv.Optional(CONF_GROUP, default=0): vol.All(cv.uint16_t, vol.Range(min=0, max=1)),
