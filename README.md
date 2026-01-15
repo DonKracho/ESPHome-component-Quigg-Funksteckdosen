@@ -1,4 +1,4 @@
-![Made for ESPHome](https://esphome.io/guides/images/made-for-esphome-black-on-white.svg)
+![Made for ESPHome](https://raw.githubusercontent.com/DonKracho/ESPHome-configurations/06cc01772bdb5ab3a25a72783a457e18d9daf7df/made-for-esphome-black-on-white.svg)
 
 ## ESPHome external component für Quigg Funksteckdosen Set
 ### Steckdosen: GT-FSI-09 (innen), GT-FSA-04 (außen) Sender: GT-9000
@@ -18,3 +18,4 @@ In dieser externen ESPHome Komponente ist exemplarisch der Rolling-Code eines GT
 Für den einfachen Nachbau noch ein kleines Fritzing Schema. Als 433MHz Sender ist ein simpler FS1000A (oder ähnlicher) 433 MHz Sender hinreichend. Als TX Pin ist im der ESPHome Beispielkonfiguration __rf-switch-d1-mini.yaml__ D6 (GPIO12) gewählt worden. Der Pin kann natürlich an die eigenen Bedürfnisse angepasst werden. 
 
 ![Quigg Funksteckdosen-Set](https://github.com/DonKracho/ESPHome-External-Components/blob/main/images/quigg_funksteckdose_schaltplan.jpg)
+
