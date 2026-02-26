@@ -1,6 +1,6 @@
 substitutions:
-  device_name: wifi-switch
-  friendly_name: 'WiFi Switch'
+  device_name: rf-switch
+  friendly_name: 'RF Switch'
 
 esphome:
   name: ${device_name}
@@ -34,8 +34,8 @@ wifi:
 
   # Enable fallback hotspot (captive portal) in case wifi connection fails
   ap:
-    ssid: "${device_name} fallback hotspot"
-    password: "MySecretPassword4HotSpot"
+    ssid: "${device_name} hotspot"
+    password: !secret hotspot_password
 
 # Allow provisioning Wi-Fi via serial or web_server
 #improv_serial:
